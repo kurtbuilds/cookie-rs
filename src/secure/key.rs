@@ -16,7 +16,7 @@ const_assert!(crate::secure::private::KEY_LEN == ENCRYPTION_KEY_LEN);
 /// [`PrivateJar`](crate::PrivateJar) and [`SignedJar`](crate::SignedJar). A
 /// single instance of a `Key` can be used for both a `PrivateJar` and a
 /// `SignedJar` simultaneously with no notable security implications.
-#[cfg_attr(all(nightly, doc), doc(cfg(any(feature = "private", feature = "signed"))))]
+#[cfg_attr(doc, doc(cfg(any(feature = "private", feature = "signed"))))]
 #[derive(Clone)]
 pub struct Key([u8; COMBINED_KEY_LENGTH /* SIGNING | ENCRYPTION */]);
 
@@ -92,7 +92,7 @@ impl Key {
     /// let key = Key::derive_from(master_key);
     /// ```
     #[cfg(feature = "key-expansion")]
-    #[cfg_attr(all(nightly, doc), doc(cfg(feature = "key-expansion")))]
+    #[cfg_attr(doc, doc(cfg(feature = "key-expansion")))]
     pub fn derive_from(master_key: &[u8]) -> Self {
         if master_key.len() < 32 {
             panic!("bad master key length: expected >= 32 bytes, found {}", master_key.len());
@@ -192,7 +192,7 @@ impl Key {
 }
 
 /// An error indicating an issue with generating or constructing a key.
-#[cfg_attr(all(nightly, doc), doc(cfg(any(feature = "private", feature = "signed"))))]
+#[cfg_attr(doc, doc(cfg(any(feature = "private", feature = "signed"))))]
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum KeyError {
