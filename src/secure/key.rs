@@ -1,3 +1,4 @@
+use rand::TryRngCore;
 use std::convert::TryFrom;
 
 const SIGNING_KEY_LEN: usize = 32;
@@ -137,9 +138,7 @@ impl Key {
     /// let key = Key::try_generate();
     /// ```
     pub fn try_generate() -> Option<Key> {
-        use crate::secure::rand::TryRngCore;
-
-        let mut rng = crate::secure::rand::rng();
+        let mut rng = rand::rng();
         let mut key = Key::zero();
         rng.try_fill_bytes(&mut key.0).ok()?;
         Some(key)
